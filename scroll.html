@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7e7c8">
+  <meta name="description" content="A tiny, very serious field guide to being us.">
+  <title>The Very Serious Science of Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,20,1;9..144,600,20,1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fffaf0;
+      --ink: #293833;
+      --muted: #65736b;
+      --coral: #da634d;
+      --butter: #f2cb69;
+      --mint: #d5e7d7;
+      --blue: #d5e6e8;
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "DM Sans", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a, button { color: inherit; font: inherit; }
+    a:hover { color: var(--coral); }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 4px; }
+    .topbar, footer { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(1080px, 88%); margin: 0 auto; }
+    .topbar { min-height: 72px; border-bottom: 1px solid rgb(41 56 51 / 20%); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .topbar a, footer a { text-decoration: none; }
+    .topbar nav { display: flex; flex-wrap: wrap; gap: 18px; }
+    .progress-track { position: sticky; z-index: 3; top: 0; height: 5px; background: #eee5d4; }
+    .progress-fill { display: block; width: 100%; height: 100%; background: var(--coral); transform: scaleX(0); transform-origin: left; }
+    main { overflow: clip; }
+    .hero { display: grid; min-height: min(680px, 86svh); place-content: center; padding: 78px 6%; background: var(--butter); text-align: center; }
+    .eyebrow { margin: 0 0 14px; color: var(--coral); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    h1, h2, p { margin-top: 0; }
+    h1 { max-width: 800px; margin: 0 auto 18px; font-family: var(--serif); font-size: clamp(48px, 8vw, 86px); font-weight: 500; line-height: .98; }
+    h1 em { color: var(--coral); font-weight: 500; }
+    .hero-copy { max-width: 470px; margin: 0 auto 27px; color: #4f5b4e; font-size: 15px; line-height: 1.8; }
+    .scroll-link { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; text-decoration: none; text-transform: uppercase; }
+    .scroll-link span { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid currentColor; border-radius: 50%; animation: bob 1.5s ease-in-out infinite; }
+    .chapters { width: min(980px, 88%); margin: 0 auto; }
+    .chapter { display: grid; grid-template-columns: 140px 1fr; align-items: center; gap: clamp(28px, 8vw, 100px); min-height: 500px; padding: 85px 4%; border-bottom: 1px solid rgb(41 56 51 / 16%); }
+    .chapter:nth-child(even) { grid-template-columns: 1fr 140px; }
+    .chapter:nth-child(even) .chapter-art { order: 2; }
+    .chapter-art { display: grid; width: 140px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: var(--mint); font-size: 68px; }
+    .chapter:nth-child(2) .chapter-art { background: var(--blue); }
+    .chapter:nth-child(3) .chapter-art { background: #f4d6c2; }
+    .chapter:nth-child(4) .chapter-art { background: #e8def1; }
+    .chapter-copy { max-width: 560px; }
+    .chapter-number { margin-bottom: 11px; color: var(--coral); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    h2 { margin-bottom: 14px; font-family: var(--serif); font-size: clamp(34px, 5vw, 51px); font-weight: 500; line-height: 1.08; }
+    .chapter-copy > p:last-of-type { margin-bottom: 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .aside-note { display: inline-block; margin-top: 20px; padding: 10px 13px; background: var(--butter); font-size: 12px; font-weight: 600; transform: rotate(-1deg); }
+    .finale { padding: 95px 7% 100px; background: var(--ink); color: var(--paper); text-align: center; }
+    .finale .eyebrow { color: var(--butter); }
+    .finale h2 { max-width: 650px; margin: 0 auto 16px; }
+    .finale-copy { max-width: 440px; margin: 0 auto 25px; color: #d5dfd8; font-size: 14px; line-height: 1.8; }
+    .high-five { min-height: 48px; padding: 0 18px; border: 0; background: var(--butter); color: var(--ink); cursor: pointer; font-size: 12px; font-weight: 700; transition: transform 160ms ease; }
+    .high-five:hover { transform: translateY(-3px) rotate(-1deg); }
+    .high-five-message { min-height: 26px; margin: 17px 0 0; color: var(--butter); font-size: 13px; }
+    footer { padding: 20px 0 24px; color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 600ms ease, transform 600ms ease; }
+    .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @keyframes bob { 50% { transform: translateY(5px); } }
+    @media (max-width: 650px) {
+      .topbar { min-height: 64px; font-size: 9px; }
+      .topbar nav { gap: 11px; }
+      .hero { min-height: 650px; min-height: 82svh; }
+      .hero-copy { font-size: 14px; }
+      .chapters { width: 88%; }
+      .chapter, .chapter:nth-child(even) { grid-template-columns: 1fr; gap: 26px; min-height: 0; padding: 65px 1%; }
+      .chapter:nth-child(even) .chapter-art { order: 0; }
+      .chapter-art { width: 100px; font-size: 48px; }
+      .chapter-copy > p:last-of-type { font-size: 14px; }
+      .finale { padding: 72px 8% 78px; }
+      footer { font-size: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="/">♥ The little us scrapbook</a>
+    <nav aria-label="More pages">
+      <a href="/quiz.html">Tiny quiz</a>
+      <a href="/surprise.html">Surprise</a>
+      <a href="/n">1,000 little notes</a>
+    </nav>
+  </header>
+  <div class="progress-track" role="progressbar" aria-label="Scroll adventure progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <span class="progress-fill"></span>
+  </div>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">A peer-reviewed study (by absolutely nobody)</p>
+      <h1 id="page-title">The very serious <em>science</em> of us.</h1>
+      <p class="hero-copy">Four important discoveries about being each other's favorite person. Please scroll responsibly; the research is extremely cute.</p>
+      <a class="scroll-link" href="#chapter-one">Begin the study <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <div class="chapters">
+      <section class="chapter reveal" id="chapter-one" aria-labelledby="chapter-one-title">
+        <div class="chapter-art" aria-hidden="true">📞</div>
+        <div class="chapter-copy">
+          <p class="chapter-number">Discovery 01 · The quick call</p>
+          <h2 id="chapter-one-title">“Just five minutes?” Famous last words.</h2>
+          <p>One quick hello somehow becomes a full tour of the day, three new topics, and one person asking, “Wait, what were we saying?”</p>
+          <span class="aside-note">Call duration: scientifically “not long enough”</span>
+        </div>
+      </section>
+
+      <section class="chapter reveal" aria-labelledby="chapter-two-title">
+        <div class="chapter-art" aria-hidden="true">🫡</div>
+        <div class="chapter-copy">
+          <p class="chapter-number">Discovery 02 · The meme department</p>
+          <h2 id="chapter-two-title">A meme is worth a thousand “thinking of you”s.</h2>
+          <p>Some messages deliver important updates. Others simply say, “I saw this and immediately thought of your beautiful, questionable sense of humor.” Both are essential communication.</p>
+          <span class="aside-note">Peer-reviewed by the group chat</span>
+        </div>
+      </section>
+
+      <section class="chapter reveal" aria-labelledby="chapter-three-title">
+        <div class="chapter-art" aria-hidden="true">👋</div>
+        <div class="chapter-copy">
+          <p class="chapter-number">Discovery 03 · The goodbye loop</p>
+          <h2 id="chapter-three-title">The call ends. Then it ends again. Then one more time.</h2>
+          <p>“Okay, bye!” “Wait, one more thing.” “Now bye!” This adorable loop may continue until somebody remembers they have to press the actual button.</p>
+          <span class="aside-note">Estimated goodbyes: at least four</span>
+        </div>
+      </section>
+
+      <section class="chapter reveal" aria-labelledby="chapter-four-title">
+        <div class="chapter-art" aria-hidden="true">🌍</div>
+        <div class="chapter-copy">
+          <p class="chapter-number">Discovery 04 · The time-zone puzzle</p>
+          <h2 id="chapter-four-title">One “good morning” may arrive at snack o'clock.</h2>
+          <p>Distance makes the clocks a little confusing, but somehow there's always time for a message, a laugh, and a reminder that you're on the same team.</p>
+          <span class="aside-note">The moon has entered the group chat</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="finale reveal" id="high-five" aria-labelledby="finale-title">
+      <p class="eyebrow">Study conclusion</p>
+      <h2 id="finale-title">The results are in: you're pretty great together.</h2>
+      <p class="finale-copy">Further research is recommended. Preferably involving snacks, a very long call, and absolutely no rush to say goodbye.</p>
+      <button class="high-five" id="high-five-button" type="button">Send a long-distance high-five ✋</button>
+      <p class="high-five-message" id="high-five-message" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer><span>Study funded by affection</span><a href="/">Back to the scrapbook ↑</a></footer>
+
+  <script>
+    document.documentElement.classList.add("js");
+
+    const progressTrack = document.querySelector(".progress-track");
+    const progressFill = document.querySelector(".progress-fill");
+    let scrollFrame = 0;
+
+    function updateProgress() {
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight > 0 ? Math.min(window.scrollY / scrollableHeight, 1) : 0;
+      progressFill.style.transform = `scaleX(${progress})`;
+      progressTrack.setAttribute("aria-valuenow", String(Math.round(progress * 100)));
+      scrollFrame = 0;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateProgress);
+    }, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
+
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    }
+
+    document.querySelector("#high-five-button").addEventListener("click", () => {
+      document.querySelector("#high-five-message").textContent = "High-five delivered across the miles. Side effects may include smiling. ✨";
+    });
+  </script>
+</body>
+</html>

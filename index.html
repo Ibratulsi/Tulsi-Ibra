@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d9eeee">
+  <meta name="description" content="A little scrapbook for my favorite person.">
+  <title>A Little Collection of Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --sky: #d9eeee;
+      --paper: #fffdf7;
+      --ink: #273c40;
+      --muted: #607477;
+      --tomato: #d95e4d;
+      --lime: #d2e6a2;
+      --blue-line: #bddbda;
+      --serif: "Lora", Georgia, serif;
+      --sans: "DM Sans", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--sky);
+      background-image: repeating-linear-gradient(0deg, transparent 0 31px, var(--blue-line) 32px);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a, summary { color: inherit; }
+    .site-header, .intro, .reasons, .letter-section, footer { width: min(1080px, 88%); margin: 0 auto; }
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      border-bottom: 1px solid rgb(39 60 64 / 22%);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .site-title { display: flex; align-items: center; gap: 9px; }
+    .site-title span { color: var(--tomato); font-size: 16px; }
+    .edition { color: var(--muted); font-weight: 500; text-decoration: none; }
+    .edition:hover { color: var(--tomato); }
+    .site-header nav.edition { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 14px; }
+    .edition.scroll-button, .edition.notes-button {
+      padding: 10px 13px;
+      background: var(--tomato);
+      color: var(--paper);
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+    .edition.scroll-button:hover, .edition.notes-button:hover { transform: translateY(-2px); background: #bf493d; color: var(--paper); }
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      align-items: center;
+      gap: 9%;
+      min-height: 590px;
+      padding: 70px 0 88px;
+    }
+    .intro-copy { animation: appear 600ms ease-out both; }
+    .kicker, .section-kicker { margin: 0 0 16px; color: var(--tomato); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    h1, h2, p { margin-top: 0; }
+    h1 {
+      max-width: 600px;
+      margin-bottom: 22px;
+      font-family: var(--serif);
+      font-size: 66px;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    h1 em { color: var(--tomato); font-weight: 500; }
+    .intro-text { max-width: 390px; margin-bottom: 26px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .jump-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--tomato);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .jump-link:hover { color: var(--tomato); }
+    .jump-link + .jump-link { margin-left: 18px; }
+    :focus-visible { outline: 3px solid var(--tomato); outline-offset: 4px; }
+    .photo-print {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      justify-self: center;
+      margin: 0;
+      padding: 13px 13px 50px;
+      background: var(--paper);
+      box-shadow: 0 15px 35px rgb(39 60 64 / 12%);
+      transform: rotate(3deg);
+      animation: appear 750ms 100ms ease-out both;
+    }
+    .photo-print::before {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      width: 82px;
+      height: 24px;
+      background: rgb(210 230 162 / 85%);
+      content: "";
+      transform: translateX(-50%) rotate(-4deg);
+    }
+    .photo-print img { display: block; width: 100%; aspect-ratio: 0.94; object-fit: cover; background: #b8d5d2; }
+    .photo-print figcaption { position: absolute; right: 14px; bottom: 15px; left: 14px; color: var(--muted); font-family: var(--serif); font-size: 13px; font-style: italic; text-align: center; }
+    .reasons-band { padding: 72px 0 78px; background: var(--paper); }
+    .reasons .section-kicker { margin-bottom: 11px; }
+    h2 { margin-bottom: 32px; font-family: var(--serif); font-size: 40px; font-weight: 500; line-height: 1.2; }
+    .reason-list { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #d7e0d9; }
+    .reason { padding: 21px 22px 6px 0; }
+    .reason + .reason { padding-left: 22px; border-left: 1px solid #d7e0d9; }
+    .reason-number { display: block; margin-bottom: 17px; color: var(--tomato); font-size: 11px; font-weight: 700; }
+    .reason h3 { margin: 0 0 8px; font-family: var(--serif); font-size: 20px; font-weight: 500; }
+    .reason p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .letter-section { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 9%; padding: 88px 0 98px; }
+    .letter-heading { align-self: start; }
+    .letter-heading h2 { max-width: 330px; margin-bottom: 14px; }
+    .letter-heading p:last-child { max-width: 280px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .letter { align-self: center; border-top: 1px solid rgb(39 60 64 / 35%); border-bottom: 1px solid rgb(39 60 64 / 35%); }
+    .letter summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 67px;
+      cursor: pointer;
+      font-family: var(--serif);
+      font-size: 18px;
+      list-style: none;
+    }
+    .letter summary::-webkit-details-marker { display: none; }
+    .letter summary::after { color: var(--tomato); content: "+"; font-family: var(--sans); font-size: 25px; }
+    .letter[open] summary::after { content: "−"; }
+    .letter-copy { padding: 4px 0 18px; color: var(--muted); font-size: 14px; line-height: 1.9; animation: appear 250ms ease-out both; }
+    .letter-copy p { margin: 0 0 14px; }
+    .letter-copy p:last-child { margin-bottom: 0; color: var(--tomato); font-family: var(--serif); font-style: italic; }
+    footer { display: flex; justify-content: space-between; padding: 19px 0 24px; border-top: 1px solid rgb(39 60 64 / 22%); color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    @keyframes appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 700px) {
+      .site-header, .intro, .reasons, .letter-section, footer { width: 86%; }
+      .site-header { min-height: 64px; font-size: 10px; }
+      .edition { font-size: 9px; }
+      .intro { grid-template-columns: 1fr; gap: 40px; min-height: 0; padding: 58px 0 74px; }
+      h1 { max-width: 500px; font-size: 50px; }
+      .intro-text { font-size: 14px; }
+      .photo-print { width: 86%; max-width: 360px; }
+      .reasons-band { padding: 57px 0 62px; }
+      h2 { font-size: 34px; }
+      .reason-list { grid-template-columns: 1fr; }
+      .reason, .reason + .reason { display: grid; grid-template-columns: 34px 1fr; column-gap: 10px; padding: 17px 0; border-left: 0; border-bottom: 1px solid #d7e0d9; }
+      .reason-number { grid-row: span 2; margin: 4px 0 0; }
+      .reason h3 { margin-bottom: 5px; }
+      .letter-section { grid-template-columns: 1fr; gap: 18px; padding: 63px 0 72px; }
+      .letter-heading h2 { max-width: 400px; }
+      footer { gap: 14px; font-size: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-title"><span aria-hidden="true">♥</span> The little us scrapbook</div>
+    <nav class="edition" aria-label="More pages">
+      <a href="/quiz.html">Play our tiny quiz →</a>
+      <a href="/little-us.html">Little us →</a>
+      <a class="edition scroll-button" href="/scroll.html">Silly scroll →</a>
+      <a class="edition notes-button" href="/n">1,000 little notes →</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy">
+        <p class="kicker">A few things worth keeping</p>
+        <h1 id="page-title">My favorite thing is <em>doing life</em> with you.</h1>
+        <p class="intro-text">Not because every day is extraordinary. Because even the everyday feels a little more like home when you're there.</p>
+        <a class="jump-link" href="#little-things">A few reasons why <span aria-hidden="true">↓</span></a>
+        <a class="jump-link" href="/surprise.html">A little surprise <span aria-hidden="true">↗</span></a>
+      </div>
+      <figure class="photo-print">
+        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Two people sharing a quiet moment together outdoors">
+        <figcaption>A feeling I want to keep</figcaption>
+      </figure>
+    </section>
+
+    <section class="reasons-band" id="little-things" aria-labelledby="reasons-title">
+      <div class="reasons">
+        <p class="section-kicker">The little things</p>
+        <h2 id="reasons-title">Things I adore about you</h2>
+        <div class="reason-list">
+          <article class="reason">
+            <span class="reason-number">01</span>
+            <h3>Your laugh</h3>
+            <p>It has a way of making the whole room feel lighter.</p>
+          </article>
+          <article class="reason">
+            <span class="reason-number">02</span>
+            <h3>Your kind heart</h3>
+            <p>You make people feel seen, cared for, and understood.</p>
+          </article>
+          <article class="reason">
+            <span class="reason-number">03</span>
+            <h3>Just being you</h3>
+            <p>Somehow, that's still my favorite thing of all.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="letter-section" aria-labelledby="letter-title">
+      <div class="letter-heading">
+        <p class="section-kicker">Tucked in the back</p>
+        <h2 id="letter-title">A little letter for later</h2>
+        <p>For a quiet moment, or any day you need a reminder.</p>
+      </div>
+      <details class="letter">
+        <summary>Open your letter</summary>
+        <div class="letter-copy">
+          <p>In a room full of people, in a whole world full of wonder, I'd still look for you first. You make ordinary days feel brighter just by being yourself, and I hope you never forget how much I admire your kind heart, your laugh, and the way you make the people around you feel at home.</p>
+          <p>Whatever life brings, I'll always be in your corner, cheering you on and choosing you. I love you, today and every day.</p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer><span>Made with love</span><span>For my favorite person</span></footer>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f2e8">
+  <meta name="description" content="One thousand little notes for your favorite person.">
+  <title>1,000 Little Notes for You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,20,1;9..144,600,20,1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f8f2e8;
+      --card: #fffdf8;
+      --ink: #243a36;
+      --muted: #61716b;
+      --coral: #d95e4d;
+      --butter: #efd071;
+      --mint: #c9dfd2;
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "DM Sans", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(rgb(36 58 54 / 8%) 0.7px, transparent 0.7px);
+      background-size: 17px 17px;
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a, button { color: inherit; font: inherit; }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 4px; }
+    .topbar, footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(1080px, 88%); margin: 0 auto; }
+    .topbar { min-height: 72px; border-bottom: 1px solid rgb(36 58 54 / 20%); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .topbar a, footer a { text-decoration: none; }
+    .topbar nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+    .topbar .notes-link { padding: 9px 11px; background: var(--coral); color: white; white-space: nowrap; }
+    .topbar .notes-link:hover { background: #bf493d; }
+    main { width: min(760px, 88%); margin: 0 auto; padding: 78px 0 95px; }
+    .intro { max-width: 620px; margin: 0 auto 34px; text-align: center; }
+    .eyebrow { margin: 0 0 13px; color: var(--coral); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    h1, h2, p { margin-top: 0; }
+    h1 { margin-bottom: 16px; font-family: var(--serif); font-size: clamp(43px, 8vw, 70px); font-weight: 500; line-height: 1.04; }
+    h1 em { color: var(--coral); font-weight: 500; }
+    .intro-copy { max-width: 450px; margin: 0 auto; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .note-box { position: relative; padding: clamp(28px, 7vw, 60px); background: var(--card); box-shadow: 0 16px 40px rgb(36 58 54 / 11%); text-align: center; }
+    .note-box::before { position: absolute; top: -11px; left: 50%; width: 82px; height: 24px; background: rgb(239 208 113 / 86%); content: ""; transform: translateX(-50%) rotate(-3deg); }
+    .note-icon { margin-bottom: 12px; font-size: 32px; }
+    .note-counter { margin-bottom: 22px; color: var(--coral); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .note-progress { height: 5px; margin: 0 auto 28px; overflow: hidden; background: #e9e4d9; }
+    .note-progress-fill { display: block; width: 0; height: 100%; background: var(--coral); transition: width 220ms ease; }
+    .note-text { display: grid; min-height: 185px; place-items: center; margin: 0 auto 25px; font-family: var(--serif); font-size: clamp(24px, 4.4vw, 35px); line-height: 1.5; }
+    .note-text.is-new { animation: appear 350ms ease-out both; }
+    .note-button, .restart-button { min-height: 49px; padding: 0 20px; border: 0; background: var(--ink); color: white; cursor: pointer; font-size: 12px; font-weight: 700; transition: transform 160ms ease, background 160ms ease; }
+    .note-button:hover, .restart-button:hover { transform: translateY(-2px); background: var(--coral); }
+    .note-button:disabled { cursor: default; opacity: .75; }
+    .note-button:disabled:hover { transform: none; background: var(--ink); }
+    .restart-button { margin-left: 9px; background: var(--coral); }
+    .restart-button[hidden] { display: none; }
+    .footnote { margin: 21px 0 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    footer { padding: 20px 0 24px; color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 600px) {
+      .topbar { min-height: 64px; font-size: 9px; }
+      .topbar nav { gap: 8px; }
+      main { padding: 62px 0 70px; }
+      .note-text { min-height: 220px; }
+      .restart-button { display: block; margin: 10px auto 0; }
+      footer { font-size: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="/">♥ The little us scrapbook</a>
+    <nav aria-label="More pages">
+      <a href="/quiz.html">Tiny quiz</a>
+      <a href="/little-us.html">Little us</a>
+      <a href="/scroll.html">Silly scroll</a>
+      <a class="notes-link" href="/n" aria-current="page">1,000 little notes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">A tiny note, whenever you need one</p>
+      <h1 id="page-title">A thousand little <em>reminders.</em></h1>
+      <p class="intro-copy">Some sweet, some silly, all picked just for you. Tap the button for a random note — no repeats until you've opened all 1,000.</p>
+    </section>
+
+    <section class="note-box" aria-label="Your next little note">
+      <div class="note-icon" aria-hidden="true">💌</div>
+      <p class="note-counter" id="note-counter">Ready when you are · 0 of 1,000</p>
+      <div class="note-progress" role="progressbar" aria-label="Notes opened" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
+        <span class="note-progress-fill"></span>
+      </div>
+      <p class="note-text" id="note-text" aria-live="polite" aria-atomic="true">Your next little reminder is waiting right here.</p>
+      <button class="note-button" id="note-button" type="button">Open a little note ♥</button>
+      <button class="restart-button" id="restart-button" type="button" hidden>Shuffle and start again</button>
+      <p class="footnote">A fresh shuffle starts each time you visit. Keep going — there's a whole thousand.</p>
+    </section>
+  </main>
+
+  <footer><span>Made with love, one note at a time</span><a href="/">Back to the scrapbook ↑</a></footer>
+
+  <script>
+    const firstLines = [
+      "Tiny reminder:",
+      "Official love bulletin:",
+      "In case today needs a footnote:",
+      "Today's very important finding:",
+      "A small message from your biggest fan:",
+      "Breaking news from the heart:",
+      "The research department would like to report:",
+      "One little thing before you go:",
+      "A note from Team Us:",
+      "Please remember, especially on busy days:",
+    ];
+    const messages = [
+      "you make ordinary days feel like the good part of a movie.",
+      "your laugh should honestly have its own fan club.",
+      "even the miles can't stop me from cheering you on.",
+      "you are allowed to take a break; the world can wait a minute.",
+      "if missing you counted as cardio, I'd be incredibly fit by now.",
+      "you make my phone's notification sound seem way more exciting.",
+      "you never have to be perfect to be completely wonderful.",
+      "one day closer to our next hug is still progress.",
+      "I would still pick you as my teammate in a very confusing game show.",
+      "you deserve a snack, a deep breath, and a reminder that you're loved.",
+    ];
+    const signOffs = [
+      "Consider this your pocket-sized hug.",
+      "No reply required; just accept one imaginary high-five.",
+      "Please file this under: facts we already knew.",
+      "Sending affection across the miles, express delivery.",
+      "This message has been approved by the Department of Us.",
+      "Now go be your lovely, slightly-too-funny self.",
+      "The official report concludes: you're pretty great.",
+      "If this made you smile, the note has done its job.",
+      "With love, and absolutely no boring meeting agenda.",
+      "End of bulletin. The feelings, however, continue.",
+    ];
+
+    const totalNotes = firstLines.length * messages.length * signOffs.length;
+    const noteOrder = Array.from({ length: totalNotes }, (_, index) => index);
+    const noteCounter = document.querySelector("#note-counter");
+    const noteText = document.querySelector("#note-text");
+    const noteButton = document.querySelector("#note-button");
+    const restartButton = document.querySelector("#restart-button");
+    const progressBar = document.querySelector(".note-progress");
+    const progressFill = document.querySelector(".note-progress-fill");
+    let openedCount = 0;
+
+    function shuffleNotes() {
+      for (let index = noteOrder.length - 1; index > 0; index -= 1) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [noteOrder[index], noteOrder[swapIndex]] = [noteOrder[swapIndex], noteOrder[index]];
+      }
+    }
+
+    function openNote() {
+      const noteId = noteOrder[openedCount];
+      const firstLineIndex = Math.floor(noteId / (messages.length * signOffs.length));
+      const messageIndex = Math.floor(noteId / signOffs.length) % messages.length;
+      const signOffIndex = noteId % signOffs.length;
+
+      noteText.classList.remove("is-new");
+      noteText.textContent = `${firstLines[firstLineIndex]} ${messages[messageIndex]} ${signOffs[signOffIndex]}`;
+      void noteText.offsetWidth;
+      noteText.classList.add("is-new");
+
+      openedCount += 1;
+      noteCounter.textContent = `${openedCount} of ${totalNotes} little notes opened`;
+      progressBar.setAttribute("aria-valuenow", String(openedCount));
+      progressFill.style.width = `${(openedCount / totalNotes) * 100}%`;
+
+      if (openedCount === totalNotes) {
+        noteCounter.textContent = `Every one of your ${totalNotes} little notes is open!`;
+        noteButton.textContent = "You've opened them all ♥";
+        noteButton.disabled = true;
+        restartButton.hidden = false;
+      } else {
+        noteButton.textContent = "Another little note ♥";
+      }
+    }
+
+    function restartNotes() {
+      openedCount = 0;
+      shuffleNotes();
+      noteCounter.textContent = `Ready when you are · 0 of ${totalNotes}`;
+      noteText.textContent = "Your next little reminder is waiting right here.";
+      noteText.classList.remove("is-new");
+      progressBar.setAttribute("aria-valuenow", "0");
+      progressFill.style.width = "0";
+      noteButton.textContent = "Open a little note ♥";
+      noteButton.disabled = false;
+      restartButton.hidden = true;
+      noteButton.focus();
+    }
+
+    shuffleNotes();
+    noteButton.addEventListener("click", openNote);
+    restartButton.addEventListener("click", restartNotes);
+  </script>
+</body>
+</html>

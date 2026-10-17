@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d7f05e">
+  <meta name="description" content="Fifty little this-or-that questions for a long-distance couple.">
+  <title>50 Little Questions for Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,20,1;9..144,600,20,1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --lime: #d7f05e;
+      --ink: #202b22;
+      --blue: #365bd8;
+      --orange: #ed6a3b;
+      --paper: #fffef7;
+      --muted: #5d695d;
+      --display: "Fraunces", Georgia, serif;
+      --body: "Space Grotesk", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--lime);
+      background-image: radial-gradient(rgb(32 43 34 / 14%) 1px, transparent 1px);
+      background-size: 19px 19px;
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+    }
+    a, button { font: inherit; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      width: min(1120px, 88%);
+      min-height: 72px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgb(32 43 34 / 28%);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+    .back-link:hover { color: var(--blue); }
+    .top-label { color: var(--muted); }
+    .scroll-button, .notes-button { margin-left: auto; padding: 9px 11px; background: var(--blue); color: white; text-decoration: none; white-space: nowrap; }
+    .scroll-button:hover, .notes-button:hover { background: #2848ba; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+    .main { width: min(900px, 88%); margin: 0 auto; padding: 66px 0 80px; }
+    .intro { max-width: 650px; margin: 0 auto 34px; text-align: center; animation: arrive 500ms ease-out both; }
+    .eyebrow { margin: 0 0 13px; color: var(--blue); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    h1, h2, p { margin-top: 0; }
+    h1 { margin-bottom: 14px; font-family: var(--display); font-size: 56px; font-weight: 500; line-height: 1.05; }
+    .intro p:last-child { max-width: 460px; margin: 0 auto; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .quiz-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .surprise-prompt { margin: 23px 0 0; color: var(--muted); font-size: 12px; text-align: center; }
+    .surprise-prompt a { color: var(--blue); font-weight: 700; text-underline-offset: 3px; }
+    .quiz-tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 170px;
+      padding: 19px 48px 20px 20px;
+      border: 1px solid rgb(32 43 34 / 12%);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 4px 4px 0 rgb(32 43 34 / 85%);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .quiz-tile:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--blue); }
+    .tile-number { margin-bottom: 16px; color: var(--orange); font-size: 10px; font-weight: 700; }
+    .tile-title { margin-bottom: 7px; font-family: var(--display); font-size: 23px; line-height: 1.15; }
+    .tile-description { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .tile-arrow { position: absolute; top: 18px; right: 18px; color: var(--blue); font-size: 19px; }
+    .quiz-view { max-width: 700px; margin: 0 auto; }
+    .quiz-view[hidden], .quiz-grid[hidden], .result[hidden] { display: none; }
+    .game-back { margin-bottom: 13px; padding: 4px 0; border: 0; border-bottom: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; font-size: 11px; font-weight: 700; }
+    .quiz-card {
+      padding: 30px;
+      background: var(--paper);
+      box-shadow: 7px 7px 0 var(--ink);
+      animation: arrive 650ms 100ms ease-out both;
+    }
+    .quiz-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 29px; }
+    .progress-label { font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .progress-track { width: 115px; height: 7px; overflow: hidden; background: #e4e8d5; }
+    .progress-fill { display: block; width: 0; height: 100%; background: var(--orange); transition: width 250ms ease; }
+    .question-number { margin-bottom: 8px; color: var(--orange); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    h2 { margin-bottom: 23px; font-family: var(--display); font-size: 32px; font-weight: 500; line-height: 1.2; }
+    .answers { display: grid; gap: 10px; }
+    .answer {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: 100%;
+      min-height: 56px;
+      padding: 10px 14px;
+      border: 1px solid #d6ddcd;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+    }
+    .answer:hover { transform: translateX(3px); border-color: var(--blue); background: #f0f2ff; }
+    .answer:disabled { cursor: default; }
+    .answer.correct { border-color: var(--blue); background: #e9edff; }
+    .answer.missed { opacity: 0.55; }
+    .answer-key { display: grid; flex: 0 0 27px; width: 27px; height: 27px; place-items: center; background: var(--lime); font-size: 11px; font-weight: 700; }
+    .feedback { min-height: 24px; margin: 16px 0 0; color: var(--blue); font-size: 13px; font-weight: 600; }
+    .next-button, .restart-button {
+      min-height: 48px;
+      padding: 0 18px;
+      border: 0;
+      background: var(--blue);
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background 150ms ease, transform 150ms ease;
+    }
+    .next-button:hover, .restart-button:hover { transform: translateY(-2px); background: #2848ba; }
+    .next-button[hidden], .quiz-card[hidden] { display: none; }
+    .result {
+      padding: 38px 30px;
+      background: var(--paper);
+      box-shadow: 7px 7px 0 var(--ink);
+      text-align: center;
+      animation: arrive 400ms ease-out both;
+    }
+    .result-stamp { display: grid; width: 58px; height: 58px; margin: 0 auto 20px; place-items: center; border-radius: 50%; background: var(--lime); color: var(--blue); font-size: 25px; }
+    .result h2 { max-width: 520px; margin: 0 auto 15px; font-size: 40px; }
+    .result-copy { max-width: 500px; margin: 0 auto 24px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .result-copy strong { color: var(--ink); }
+    .answer-review { max-width: 500px; margin: 0 auto 25px; border-top: 1px solid #d6ddcd; border-bottom: 1px solid #d6ddcd; text-align: left; }
+    .answer-review summary { padding: 13px 0; cursor: pointer; color: var(--blue); font-size: 12px; font-weight: 700; }
+    .answer-review ol { display: grid; gap: 12px; margin: 0; padding: 0 0 17px 20px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .answer-review li strong { display: block; color: var(--ink); font-weight: 600; }
+    .result-actions { display: flex; justify-content: center; gap: 17px; flex-wrap: wrap; }
+    .result-actions a { align-self: center; color: var(--blue); font-size: 12px; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .page-footer { margin-top: 32px; color: var(--muted); font-size: 10px; text-align: center; }
+    @keyframes arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 560px) {
+      .topbar { min-height: 62px; font-size: 9px; }
+      .main { padding: 52px 0 58px; }
+      h1 { font-size: 43px; }
+      .quiz-grid { grid-template-columns: 1fr; gap: 12px; }
+      .quiz-tile { min-height: 145px; }
+      .quiz-card { padding: 22px 18px; box-shadow: 5px 5px 0 var(--ink); }
+      .quiz-meta { margin-bottom: 24px; }
+      h2 { font-size: 27px; }
+      .answer { min-height: 54px; font-size: 13px; }
+      .result { padding: 31px 20px; box-shadow: 5px 5px 0 var(--ink); }
+      .result h2 { font-size: 34px; }
+    }
+    @media (min-width: 561px) and (max-width: 760px) {
+      .quiz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="back-link" href="/"><span aria-hidden="true">←</span> Back to the scrapbook</a>
+    <span class="top-label">A very serious quiz</span>
+    <a class="scroll-button" href="/scroll.html">Silly scroll →</a>
+    <a class="notes-button" href="/n">1,000 little notes →</a>
+  </header>
+
+  <main class="main">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">A little game for our next call</p>
+      <h1 id="page-title">50 little questions to feel closer.</h1>
+      <p>Five mini-quizzes for two people in two places. Take turns choosing, then tell each other why.</p>
+    </section>
+
+    <div class="quiz-grid" id="quiz-menu" aria-label="Choose a quiz">
+      <button class="quiz-tile" type="button" data-quiz="little-things">
+        <span class="tile-number">QUIZ 01 · 10 QUESTIONS</span>
+        <span class="tile-title">Little things that feel like us</span>
+        <span class="tile-description">Small rituals, messages, and everyday moments.</span>
+        <span class="tile-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button class="quiz-tile" type="button" data-quiz="video-dates">
+        <span class="tile-number">QUIZ 02 · 10 QUESTIONS</span>
+        <span class="tile-title">Long-distance date night</span>
+        <span class="tile-description">Dream up your perfect video date together.</span>
+        <span class="tile-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button class="quiz-tile" type="button" data-quiz="feel-close">
+        <span class="tile-number">QUIZ 03 · 10 QUESTIONS</span>
+        <span class="tile-title">Feeling close, even far away</span>
+        <span class="tile-description">Find the little ways to stay part of each other's day.</span>
+        <span class="tile-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button class="quiz-tile" type="button" data-quiz="next-visit">
+        <span class="tile-number">QUIZ 04 · 10 QUESTIONS</span>
+        <span class="tile-title">The next visit countdown</span>
+        <span class="tile-description">Pick what you'll do when you're together again.</span>
+        <span class="tile-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button class="quiz-tile" type="button" data-quiz="just-for-laughs">
+        <span class="tile-number">QUIZ 05 · 10 QUESTIONS</span>
+        <span class="tile-title">Just for laughs</span>
+        <span class="tile-description">Silly choices for your next call together.</span>
+        <span class="tile-arrow" aria-hidden="true">↗</span>
+      </button>
+    </div>
+    <p class="surprise-prompt">Need a little something between calls? <a href="/surprise.html">Open a surprise note.</a> Or <a href="/scroll.html">take a silly scroll break.</a></p>
+
+    <section class="quiz-view" id="quiz-view" hidden>
+      <button class="game-back" id="back-button" type="button">← All quizzes</button>
+      <section class="quiz-card" id="quiz-card" aria-labelledby="question-title">
+        <div class="quiz-meta">
+          <span class="progress-label" id="progress-label"></span>
+          <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0">
+            <span class="progress-fill" id="progress-fill"></span>
+          </div>
+        </div>
+        <p class="question-number" id="question-number"></p>
+        <h2 id="question-title" tabindex="-1"></h2>
+        <div class="answers" id="answers"></div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+        <button class="next-button" id="next-button" type="button" hidden></button>
+      </section>
+    </section>
+
+    <section class="result" id="result" aria-labelledby="result-title" hidden>
+      <div class="result-stamp" aria-hidden="true">♥</div>
+      <p class="eyebrow" id="result-eyebrow">Quiz complete</p>
+      <h2 id="result-title" tabindex="-1"></h2>
+      <p class="result-copy" id="result-copy"></p>
+      <details class="answer-review">
+        <summary>Review your 10 picks</summary>
+        <ol id="answer-list"></ol>
+      </details>
+      <div class="result-actions">
+        <button class="restart-button" id="restart-button" type="button">Play this one again</button>
+        <button class="restart-button" id="menu-button" type="button">Choose another quiz</button>
+        <a href="/">Back to the scrapbook</a>
+      </div>
+    </section>
+
+    <p class="page-footer">Made with love, and absolutely no wrong answers.</p>
+  </main>
+
+  <script>
+    const quizzes = {
+      "little-things": {
+        title: "Little things that feel like us",
+        questions: [
+          { prompt: "Which feels more like us?", answers: ["A good-morning voice note", "A late-night video call"] },
+          { prompt: "How would you send a tiny 'thinking of you'?", answers: ["A photo from my day", "A quick voice memo"] },
+          { prompt: "What's the best way to catch up?", answers: ["A short hello every day", "One long weekend call"] },
+          { prompt: "Which surprise in the mail sounds sweeter?", answers: ["A handwritten letter", "A little box of favorite snacks"] },
+          { prompt: "On a quiet call, we'd rather...", answers: ["Tell each other every detail", "Just keep each other company"] },
+          { prompt: "Pick a shared little ritual.", answers: ["Make the same tea during a call", "Add songs to a playlist for each other"] },
+          { prompt: "How should we count down to our next visit?", answers: ["A countdown on the calendar", "A list of things we'll do together"] },
+          { prompt: "What kind of message means more on a hard day?", answers: ["'You've got this' before it starts", "'Tell me everything' when it's over"] },
+          { prompt: "Which digital keepsake would you save?", answers: ["A folder of our favorite photos", "A collection of voice notes"] },
+          { prompt: "Choose our cozy call vibe.", answers: ["Pajamas and a comfort show", "Getting dressed up for a pretend night out"] },
+        ],
+      },
+      "video-dates": {
+        title: "Long-distance date night",
+        questions: [
+          { prompt: "For dinner together on video...", answers: ["Cook the same recipe", "Order the same kind of takeout"] },
+          { prompt: "Our next online date should be...", answers: ["A movie at the same time", "A co-op game we can play together"] },
+          { prompt: "Pick a virtual outing.", answers: ["Explore a museum online", "Watch travel videos and dream up a trip"] },
+          { prompt: "Best time for a date call?", answers: ["Breakfast and a slow start", "Dessert and a late-night chat"] },
+          { prompt: "For a special video date, should we...", answers: ["Dress up like we're going out", "Keep it cozy in our favorite hoodies"] },
+          { prompt: "Which creative date sounds more fun?", answers: ["Draw each other, no matter how silly", "Make a playlist one song at a time"] },
+          { prompt: "What should we do while catching up?", answers: ["Take a little walk with our phones", "Settle in somewhere comfy"] },
+          { prompt: "For our shared playlist...", answers: ["Take turns adding surprise songs", "Pick a theme and build it together"] },
+          { prompt: "A little bit of magic on a call?", answers: ["Watch the sunset from two places", "Look for the moon at the same time"] },
+          { prompt: "How should our next dream trip start?", answers: ["Plan every stop together", "Pick a place and leave room for surprises"] },
+        ],
+      },
+      "feel-close": {
+        title: "Feeling close, even far away",
+        questions: [
+          { prompt: "What would you rather wake up to?", answers: ["A sweet text waiting for me", "A voice note I can play when I'm ready"] },
+          { prompt: "How do you like to share your day?", answers: ["Little updates as things happen", "A proper end-of-day recap"] },
+          { prompt: "When I pop into your mind, should I send...", answers: ["A silly meme", "A thoughtful question"] },
+          { prompt: "A shared story from afar?", answers: ["Read the same book", "Watch the same series"] },
+          { prompt: "Which makes you feel more included?", answers: ["Photos of ordinary moments", "A voice note telling the story"] },
+          { prompt: "Our calls should be...", answers: ["Planned, so we can look forward to them", "Spontaneous, whenever our time zones line up"] },
+          { prompt: "A little company while we're busy?", answers: ["Study or work together on video", "Stay on a quiet call while we do our own things"] },
+          { prompt: "What would you keep close?", answers: ["A countdown to our next visit", "A shared album of favorite memories"] },
+          { prompt: "When something important is coming up...", answers: ["A pep talk before it happens", "A call to celebrate or unwind after"] },
+          { prompt: "Pick a tiny routine to share.", answers: ["A good-night message every day", "A song to send each morning"] },
+        ],
+      },
+      "next-visit": {
+        title: "The next visit countdown",
+        questions: [
+          { prompt: "The very first thing when we meet?", answers: ["A long hug", "Find food and talk the whole way"] },
+          { prompt: "How should we plan our time together?", answers: ["A little itinerary", "A few ideas and plenty of wandering"] },
+          { prompt: "On the next visit, let's go...", answers: ["Somewhere familiar that we love", "Somewhere new we've never explored"] },
+          { prompt: "First meal together should be...", answers: ["Something homemade", "A local place we've been wanting to try"] },
+          { prompt: "For a day out, pick one.", answers: ["A scenic walk and lots of photos", "A cozy afternoon with no schedule"] },
+          { prompt: "A small surprise to bring along?", answers: ["A little gift I picked for you", "A note to read when we're apart again"] },
+          { prompt: "What should we do with our phones?", answers: ["Take silly pictures together", "Put them away and be right there"] },
+          { prompt: "During the visit, should we...", answers: ["Revisit our favorite memories", "Make a bunch of new ones"] },
+          { prompt: "When should we plan the next visit?", answers: ["Before this one ends", "After we've had time to miss each other"] },
+          { prompt: "The last moment before goodbye...", answers: ["One more long hug", "Make a promise for the next call"] },
+        ],
+      },
+      "just-for-laughs": {
+        title: "Just for laughs",
+        questions: [
+          { prompt: "Who sends the longer voice notes?", answers: ["Me", "You"] },
+          { prompt: "Who is more likely to fall asleep on a call?", answers: ["Me", "You"] },
+          { prompt: "Who would pack too much for the next visit?", answers: ["Me", "You"] },
+          { prompt: "If we got lost together, who'd navigate?", answers: ["Me, confidently", "You, after checking the map"] },
+          { prompt: "What's our long-distance superpower?", answers: ["Teleporting for hugs", "Knowing when the other needs a call"] },
+          { prompt: "If our calls had a soundtrack...", answers: ["A romantic movie theme", "A very silly sitcom theme"] },
+          { prompt: "Who would win at an online game?", answers: ["Me, obviously", "You, and I'd be a good sport"] },
+          { prompt: "What is most likely to interrupt a call?", answers: ["A snack emergency", "The Wi-Fi choosing drama"] },
+          { prompt: "Which award should we win?", answers: ["Most dramatic goodbye", "Best long-distance snack review"] },
+          { prompt: "Pick our next tiny tradition.", answers: ["Same-time dessert on video", "One photo from each day"] },
+        ],
+      },
+    };
+
+    const quizMenu = document.querySelector("#quiz-menu");
+    const quizView = document.querySelector("#quiz-view");
+    const quizCard = document.querySelector("#quiz-card");
+    const result = document.querySelector("#result");
+    const questionNumber = document.querySelector("#question-number");
+    const questionTitle = document.querySelector("#question-title");
+    const answers = document.querySelector("#answers");
+    const feedback = document.querySelector("#feedback");
+    const progressLabel = document.querySelector("#progress-label");
+    const progressTrack = document.querySelector("#progress-track");
+    const progressFill = document.querySelector("#progress-fill");
+    const nextButton = document.querySelector("#next-button");
+    const resultTitle = document.querySelector("#result-title");
+    const resultCopy = document.querySelector("#result-copy");
+    const resultEyebrow = document.querySelector("#result-eyebrow");
+    const answerList = document.querySelector("#answer-list");
+    let currentQuestion = 0;
+    let activeQuiz;
+    let activeQuizKey;
+    let selectedAnswers = [];
+
+    function startQuiz(name) {
+      activeQuizKey = name;
+      activeQuiz = quizzes[name];
+      currentQuestion = 0;
+      selectedAnswers = [];
+      quizMenu.hidden = true;
+      result.hidden = true;
+      quizView.hidden = false;
+      quizCard.hidden = false;
+      renderQuestion();
+      questionTitle.focus();
+    }
+
+    function renderQuestion() {
+      const question = activeQuiz.questions[currentQuestion];
+      questionNumber.textContent = `Question ${String(currentQuestion + 1).padStart(2, "0")}`;
+      questionTitle.textContent = question.prompt;
+      progressLabel.textContent = `Question ${currentQuestion + 1} of ${activeQuiz.questions.length}`;
+      progressTrack.setAttribute("aria-valuemax", String(activeQuiz.questions.length));
+      progressTrack.setAttribute("aria-valuenow", String(currentQuestion));
+      progressFill.style.width = `${(currentQuestion / activeQuiz.questions.length) * 100}%`;
+      feedback.textContent = "";
+      nextButton.hidden = true;
+      answers.replaceChildren();
+
+      question.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.className = "answer";
+        button.type = "button";
+        const key = document.createElement("span");
+        key.className = "answer-key";
+        key.textContent = String.fromCharCode(65 + index);
+        const label = document.createElement("span");
+        label.textContent = answer;
+        button.append(key, label);
+        button.addEventListener("click", () => chooseAnswer(index));
+        answers.append(button);
+      });
+    }
+
+    function chooseAnswer(selectedIndex) {
+      const question = activeQuiz.questions[currentQuestion];
+      const selected = question.answers[selectedIndex];
+      const buttons = [...answers.querySelectorAll("button")];
+      buttons.forEach((button, index) => {
+        button.disabled = true;
+        if (index === selectedIndex) button.classList.add("correct");
+      });
+      selectedAnswers.push({ prompt: question.prompt, answer: selected });
+      feedback.textContent = "Tell each other why you picked it.";
+      nextButton.textContent = currentQuestion === activeQuiz.questions.length - 1 ? "Finish this mini-quiz →" : "Next question →";
+      nextButton.hidden = false;
+    }
+
+    nextButton.addEventListener("click", () => {
+      currentQuestion += 1;
+      if (currentQuestion === activeQuiz.questions.length) {
+        showResult();
+        quizCard.hidden = true;
+        return;
+      }
+      renderQuestion();
+      questionTitle.focus();
+    });
+
+    function showResult() {
+      resultEyebrow.textContent = `${selectedAnswers.length} of 10 questions answered`;
+      resultTitle.textContent = "A little closer, even from far away.";
+      resultCopy.textContent = `You finished “${activeQuiz.title}.” Compare your picks, keep the conversation going, and save one idea for your next call.`;
+      answerList.replaceChildren();
+      selectedAnswers.forEach(({ prompt, answer }) => {
+        const item = document.createElement("li");
+        const questionText = document.createElement("span");
+        const answerText = document.createElement("strong");
+        questionText.textContent = prompt;
+        answerText.textContent = answer;
+        item.append(questionText, answerText);
+        answerList.append(item);
+      });
+      quizView.hidden = true;
+      result.hidden = false;
+      resultTitle.focus();
+    }
+
+    function showMenu() {
+      quizView.hidden = true;
+      result.hidden = true;
+      quizMenu.hidden = false;
+    }
+
+    document.querySelectorAll("[data-quiz]").forEach((button) => {
+      button.addEventListener("click", () => startQuiz(button.dataset.quiz));
+    });
+    document.querySelector("#back-button").addEventListener("click", showMenu);
+    document.querySelector("#menu-button").addEventListener("click", showMenu);
+    document.querySelector("#restart-button").addEventListener("click", () => {
+      startQuiz(activeQuizKey);
+    });
+
+  </script>
+</body>
+</html>
